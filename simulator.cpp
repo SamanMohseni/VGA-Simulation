@@ -1,6 +1,3 @@
-// Author: Saman Mohseni
-// Email: cloud.saman@gmail.com
-
 #include <verilated.h>          // defines common routines
 #include <GL/glut.h>
 #include <thread>
@@ -46,39 +43,39 @@ void render(void) {
     glClear(GL_COLOR_BUFFER_BIT);
     
     // convert pixels into OpenGL rectangles
-	for(int i = 0; i < ACTIVE_WIDTH; i++){
-		for(int j = 0; j < ACTIVE_HEIGHT; j++){
-			glColor3f(graphics_buffer[i][j][0], graphics_buffer[i][j][1], graphics_buffer[i][j][2]);
-			glRectf(i*pixel_w-1, -j*pixel_h+1, (i+1)*pixel_w-1, -(j+1)*pixel_h+1);
-		}
-	}
-	
+    for(int i = 0; i < ACTIVE_WIDTH; i++){
+        for(int j = 0; j < ACTIVE_HEIGHT; j++){
+            glColor3f(graphics_buffer[i][j][0], graphics_buffer[i][j][1], graphics_buffer[i][j][2]);
+            glRectf(i*pixel_w-1, -j*pixel_h+1, (i+1)*pixel_w-1, -(j+1)*pixel_h+1);
+        }
+    }
+    
     glFlush();
 }
 
 // timer to periodically update the screen
 void glutTimer(int t) {
-	glutPostRedisplay(); // re-renders the screen
-	glutTimerFunc(t, glutTimer, t);
+    glutPostRedisplay(); // re-renders the screen
+    glutTimerFunc(t, glutTimer, t);
 }
 
 // handle up/down/left/right arrow keys
 int keys[4] = {};
 void Special_input(int key, int x, int y) {
-	switch(key) {
-		case GLUT_KEY_UP:
-		    keys[0] = 1;
-		    break;
-		case GLUT_KEY_DOWN:
-		    keys[1] = 1;
-		    break;
-		case GLUT_KEY_LEFT:
-		    keys[2] = 1;
-		    break;
-		case GLUT_KEY_RIGHT:
-		    keys[3] = 1;
-		    break;
-	}
+    switch(key) {
+        case GLUT_KEY_UP:
+            keys[0] = 1;
+            break;
+        case GLUT_KEY_DOWN:
+            keys[1] = 1;
+            break;
+        case GLUT_KEY_LEFT:
+            keys[2] = 1;
+            break;
+        case GLUT_KEY_RIGHT:
+            keys[3] = 1;
+            break;
+    }
 }
 
 // initiate and handle graphics
@@ -90,11 +87,11 @@ void graphics_loop(int argc, char** argv) {
     glutCreateWindow("VGA Simulator");
     glutDisplayFunc(render);
     glutSpecialFunc(Special_input);
-	
+    
     gl_setup_complete = true;
     
     // re-render every 16ms, around 60Hz
-	glutTimerFunc(16, glutTimer, 16);
+    glutTimerFunc(16, glutTimer, 16);
     glutMainLoop();
 }
 
@@ -127,29 +124,29 @@ void discard_input() {
 void sample_pixel() {
     discard_input();
     
-	coord_x = (coord_x + 1) % TOTAL_WIDTH;
+    coord_x = (coord_x + 1) % TOTAL_WIDTH;
 
-	if(!display->h_sync && pre_h_sync){ // on negative edge of h_sync
-		// re-sync horizontal counter
-		coord_x = RIGHT_PORCH + ACTIVE_WIDTH + HORIZONTAL_SYNC;
-		coord_y = (coord_y + 1) % TOTAL_HEIGHT;
-	}
+    if(!display->h_sync && pre_h_sync){ // on negative edge of h_sync
+        // re-sync horizontal counter
+        coord_x = RIGHT_PORCH + ACTIVE_WIDTH + HORIZONTAL_SYNC;
+        coord_y = (coord_y + 1) % TOTAL_HEIGHT;
+    }
 
-	if(!display->v_sync && pre_v_sync){ // on negative edge of v_sync
-		// re-sync vertical counter
-		coord_y = TOP_PORCH + ACTIVE_HEIGHT + VERTICAL_SYNC;
-		apply_input(); // inputs are pulsed once each new frame
-	}
+    if(!display->v_sync && pre_v_sync){ // on negative edge of v_sync
+        // re-sync vertical counter
+        coord_y = TOP_PORCH + ACTIVE_HEIGHT + VERTICAL_SYNC;
+        apply_input(); // inputs are pulsed once each new frame
+    }
 
-	if(coord_x < ACTIVE_WIDTH && coord_y < ACTIVE_HEIGHT){
-	    int rgb = display->rgb;
-		graphics_buffer[coord_x][coord_y][0] = float((rgb & (1 << 0)) >> 0);
-		graphics_buffer[coord_x][coord_y][1] = float((rgb & (1 << 1)) >> 1);
-		graphics_buffer[coord_x][coord_y][2] = float((rgb & (1 << 2)) >> 2);
-	}
+    if(coord_x < ACTIVE_WIDTH && coord_y < ACTIVE_HEIGHT){
+        int rgb = display->rgb;
+        graphics_buffer[coord_x][coord_y][0] = float((rgb & (1 << 0)) >> 0);
+        graphics_buffer[coord_x][coord_y][1] = float((rgb & (1 << 1)) >> 1);
+        graphics_buffer[coord_x][coord_y][2] = float((rgb & (1 << 2)) >> 2);
+    }
 
-	pre_h_sync = display->h_sync;
-	pre_v_sync = display->v_sync;
+    pre_h_sync = display->h_sync;
+    pre_v_sync = display->v_sync;
 }
 
 // simulate for a single clock
@@ -195,7 +192,7 @@ int main(int argc, char** argv) {
         tick();
         // the clock frequency of VGA is half of that of the whole model
         // so we sample from VGA every other clock
-		sample_pixel();
+        sample_pixel();
     }
 
     display->final();
