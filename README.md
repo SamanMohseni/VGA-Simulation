@@ -23,7 +23,7 @@ obj_dir/Vdisplay
 After execution, you should see a magenta circle on a green background, as shown below. You should also be able to move the circle using arrow keys.
 
 <p align="center">
-  <img src="https://github.com/SamanMohseni/VGA-Simulation/blob/main/VGA_Simulator.png" height="300">
+  <img src="https://github.com/SamanMohseni/VGA-Simulation/blob/main/VGA_Simulator.png" height="270">
 </p>
 
 ## Simulating your own design
