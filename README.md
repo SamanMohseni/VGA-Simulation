@@ -20,7 +20,9 @@ verilator -Wall --cc --exe simulator.cpp display.v -LDFLAGS -lglut -LDFLAGS -lGL
 make -j -C obj_dir -f Vdisplay.mk Vdisplay
 obj_dir/Vdisplay
 ```
-You should see a magenta circle on a green background after execution. You should also be able to move the circle using arrow keys.
+You should see a magenta circle on a green background after execution (depicted below). You should also be able to move the circle using arrow keys.
+
+![VGA Simulator](https://github.com/SamanMohseni/VGA-Simulation/blob/main/VGA_Simulator.png)
 
 ## Simulating your own design
 "display.v" is the top module of our design and also the interface to the simulator. This module uses two other sub-modules, one of which is "vga_controller.v", responsible for generating VGA synchronization signals, and the other is "graphics.v", which produces the display content by specifying the color of each pixel at any moment.
