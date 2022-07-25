@@ -1,4 +1,4 @@
-# A simple VGA monitor simulator to test Verilog models
+# A simple VGA display simulator to test Verilog models
 
 With this simulator, you can possibly visualize the VGA output of your Verilog design in near real-time. However, the speed of simulation can either be faster or slower than reality, based on the complexity of your Verilog design and your system's speed.
 
