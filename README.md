@@ -1,6 +1,6 @@
 # A simple VGA monitor simulator to test Verilog models
 
-With this simulator, you can visualize the VGA output of your Verilog design in near real-time. However, the speed of simulation can either be faster or slower than reality, based on the complexity of your Verilog design and your system's speed.
+With this simulator, you can possibly visualize the VGA output of your Verilog design in near real-time. However, the speed of simulation can either be faster or slower than reality, based on the complexity of your Verilog design and your system's speed.
 
 To do this simulation, you need to have Verilator installed. Verilator is a free, open-source software tool that can convert Verilog to a cycle-accurate behavioral model in C++ or SystemC.
 You also need to have OpenGL installed.
