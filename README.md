@@ -35,3 +35,6 @@ By replacing the Verilog modules with your design and slightly modifying the "si
 ## More on Verilator
 In general, Verilator takes a module, for example, "top.v", as a top module and creates the "Vtop" class, whose header is located in the "Vtop.h" file. By including this file in your C++ simulator, you can access your Verilog design's inputs and outputs. Inputs and outputs of your design are publicly available in the "Vtop" class without changing the names.
 With that said, you can easily modify the "simulator.cpp" to customize it for your design.
+
+## Acknowledgments
+I developed this simulator during my time as a teaching assistant for [Dr. Hajar Falahati](https://scholar.google.com/citations?user=gm3mlIoAAAAJ&hl=en) in the spring of 2022. At that time, students lacked access to the labs due to the Covid-19 pandemic. To address this, I created the simulator to enable students to test their projects involving VGA output.
